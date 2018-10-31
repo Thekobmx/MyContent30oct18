@@ -65,7 +65,7 @@ class RegisterViewController: UIViewController {
         let urlPHP = URL(string: urlAddDataString)
         let request = NSMutableURLRequest(url: urlPHP!)
         
-        moveToMain()
+        
         
         let task = URLSession.shared.dataTask(with: request as URLRequest) {data, response, error in
             
@@ -82,17 +82,20 @@ class RegisterViewController: UIViewController {
                     let resultString: String = canReadData! as String
                     print("resultString ==> \(resultString)")
                     
-//                    if Bool(resultString)!{
-//
-//                        //                        Back To Main
-//                        self.moveToMain()
-//
-//
-//                    } else{
-//                        self.myAlertDialog(title: "Canot Upload", myMessage: "Please Try Again")
-//                    }
+                    if Bool(resultString)!
+                    {
+                        DispatchQueue.main.async {
+                            self.moveToMain()
+                        }
+                    }
+                    else
+                    {
+                        DispatchQueue.main.async {
+                            self.myAlertDialog(title: "Cannot Upload", myMessage: "Please Try Again")
+                        }
+                    }
                     
-                    
+
                 } //if 2
                 
             } // if

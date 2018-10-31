@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     var passwordString: String?
     var urlString: String = "https://androidthai.in.th/kob/authenKOB.php?isAdd=true&User="
     
-    
+    var nameOfUser = ""
     
     
     
@@ -35,11 +35,11 @@ class ViewController: UIViewController {
         showLog()
         
         if checkData(){
-//            Have Space
+            //            Have Space
             showAlert(myTitle: "Have Space", myMessage: "Please Fill Every Blank")
         } else {
             
-//            No Space
+            //            No Space
             checkAuthen()
         }
         
@@ -55,7 +55,7 @@ class ViewController: UIViewController {
         let urlPHP = URL(string: myUrlString)
         let request = NSMutableURLRequest(url: urlPHP!)
         
-//        Create Task or Thread
+        //        Create Task or Thread
         let task = URLSession.shared.dataTask(with: request as URLRequest) { (data, response, error) in
             
             if error != nil{
@@ -71,12 +71,15 @@ class ViewController: UIViewController {
                     let jsonString: String = canReadData! as String
                     print("jsonString ==> \(jsonString)")
                     
-//                    Check User
+                    //                    Check User
                     if jsonString == "null"
                     {
-//                        self.showAlert(myTitle: "User False", myMessage: "No " + self.userString! + "in my Database")
                         
-                        print("User False")
+                        DispatchQueue.main.async {
+                            self.showAlert(myTitle: "User False", myMessage: "No " + self.userString! + " in my Database")
+                        }
+                        
+                        //print("User False")
                         
                     } else {
                         
@@ -100,7 +103,7 @@ class ViewController: UIViewController {
                         print("noSuffixBlock ==> \(noSuffixBlock)")
                         
                         
-//                        Wait Here
+                        //                        Wait Here
                         self.convertJsonToDictionary(jsonString: noSuffixBlock)
                         
                     } //if3
@@ -127,19 +130,22 @@ class ViewController: UIViewController {
             do {
                 
                 dictionary = try JSONSerialization.jsonObject(with: data, options:[]) as? [String:AnyObject] as NSDictionary?
-//                print("myDictionary ==> \(String(describing: dictionary))")
+                //                print("myDictionary ==> \(String(describing: dictionary))")
                 
                 if let myDictionary = dictionary
                 {
                     print("myDictionary ==> \(myDictionary)")
                     
-//                    Check Password
+                    //                    Check Password
                     if passwordString == myDictionary["Password"] as? String
                     {
                         print("Welcome ==> \(myDictionary["Name"] as! String)")
-
                         
-//                        Move To MyContent
+                        
+                        nameOfUser = myDictionary["Name"] as! String
+                        
+                        
+                        //                        Move To MyContent
                         DispatchQueue.main.async{
                             self.performSegue(withIdentifier: "gotoMyContent", sender: self)
                         }
@@ -167,7 +173,14 @@ class ViewController: UIViewController {
         
     } //Convert
     
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let myContentController = segue.destination as! MyContentViewController
+        
+        myContentController.nameOfUserContent = nameOfUser
+        
+        
+        
+    }
     
     func showAlert(myTitle: String, myMessage: String) -> Void {
         
@@ -176,11 +189,14 @@ class ViewController: UIViewController {
         myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { (action) in
             myAlert.dismiss(animated: true, completion: nil)
             print("You Click OK")
+            self.userTextField.text = ""
+            self.passwordTextField.text = ""
         }))
         
         myAlert.addAction(UIAlertAction(title: "NO", style: UIAlertAction.Style.default, handler: { (action) in
             myAlert.dismiss(animated: true, completion: nil)
             print("You Click No")
+            
         }))
         
         self.present(myAlert, animated: true , completion: nil)
