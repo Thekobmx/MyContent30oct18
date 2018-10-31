@@ -34,13 +34,46 @@ class ViewController: UIViewController {
         
         showLog()
         
+        if checkData(){
+//            Have Space
+            showAlert(myTitle: "Have Space", myMessage: "Please Fill Every Blank")
+        } else {
+            
+//            No Space
+        }
+        
         
     } //signIn
     
+    func showAlert(myTitle: String, myMessage: String) -> Void {
+        
+        let myAlert = UIAlertController(title: myTitle, message: myMessage, preferredStyle: UIAlertController.Style.alert)
+        
+        myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { (action) in
+            myAlert.dismiss(animated: true, completion: nil)
+        }))
+        
+        myAlert.addAction(UIAlertAction(title: "NO", style: UIAlertAction.Style.default, handler: { (action) in
+            myAlert.dismiss(animated: true, completion: nil)
+            print("You Click No")
+        }))
+        
+        self.present(myAlert, animated: true , completion: nil)
+    }
+    
+    
+    func checkData() -> Bool {
+        var resultBool: Bool = false
+        
+        if (userString?.count == 0) || (passwordString?.count == 0) {
+            resultBool = true
+        }
+        print("resultBool ==> \(resultBool)")
+        return resultBool
+    }
     
     func showLog() -> Void {
         print("user ==> \(userString!)")
-        
         print("password ==> \(passwordString!)")
     }
     
