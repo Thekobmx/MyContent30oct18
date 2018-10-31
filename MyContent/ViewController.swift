@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     
     var userString: String?
     var passwordString: String?
-    
+    var urlString: String = "https://androidthai.in.th/kob/authenKOB.php?isAdd=true&User="
     
     
     
@@ -40,10 +40,134 @@ class ViewController: UIViewController {
         } else {
             
 //            No Space
+            checkAuthen()
         }
         
         
     } //signIn
+    
+    
+    func checkAuthen() -> Void {
+        
+        let myUrlString: String = urlString + userString!
+        print("urlString ==> \(myUrlString)")
+        
+        let urlPHP = URL(string: myUrlString)
+        let request = NSMutableURLRequest(url: urlPHP!)
+        
+//        Create Task or Thread
+        let task = URLSession.shared.dataTask(with: request as URLRequest) { (data, response, error) in
+            
+            if error != nil{
+                print("Have Error")
+                
+            } else {
+                
+                if let myReadData = data {
+                    
+                    
+                    let canReadData = NSString(data: myReadData, encoding: String.Encoding.utf8.rawValue)
+                    
+                    let jsonString: String = canReadData! as String
+                    print("jsonString ==> \(jsonString)")
+                    
+//                    Check User
+                    if jsonString == "null"
+                    {
+//                        self.showAlert(myTitle: "User False", myMessage: "No " + self.userString! + "in my Database")
+                        
+                        print("User False")
+                        
+                    } else {
+                        
+                        //ตัดสตริงหน้าหลัง เพื่อแปลง Json เป็น Dictionary
+                        let blockPrefix = "["
+                        var noPrefixBlock = ""
+                        
+                        if let myContentArray = canReadData?.components(separatedBy: blockPrefix)
+                        {
+                            noPrefixBlock = myContentArray[1]
+                            print("noPrefixBlock ==> \(noPrefixBlock)")
+                        }
+                        
+                        
+                        let blockSuffix = "]"
+                        var noSuffixBlock = ""
+                        
+                        let myContent2Array = noPrefixBlock.components(separatedBy: blockSuffix)
+                        
+                        noSuffixBlock = myContent2Array[0]
+                        print("noSuffixBlock ==> \(noSuffixBlock)")
+                        
+                        
+//                        Wait Here
+                        self.convertJsonToDictionary(jsonString: noSuffixBlock)
+                        
+                    } //if3
+                    
+                    
+                } //if2
+                
+            } //if1
+            
+            
+        }   //task
+        task.resume()
+        
+    } // CheckAuthen
+    
+    
+    func convertJsonToDictionary(jsonString: String) -> Void {
+        
+        
+        var dictionary: NSDictionary?
+        
+        if let data = jsonString.data(using: String.Encoding.utf8) {
+            
+            do {
+                
+                dictionary = try JSONSerialization.jsonObject(with: data, options:[]) as? [String:AnyObject] as NSDictionary?
+//                print("myDictionary ==> \(String(describing: dictionary))")
+                
+                if let myDictionary = dictionary
+                {
+                    print("myDictionary ==> \(myDictionary)")
+                    
+//                    Check Password
+                    if passwordString == myDictionary["Password"] as? String
+                    {
+                        print("Welcome ==> \(myDictionary["Name"] as! String)")
+
+                        
+//                        Move To MyContent
+                        DispatchQueue.main.async{
+                            self.performSegue(withIdentifier: "gotoMyContent", sender: self)
+                        }
+                        
+                        
+                        
+                        
+                    } else {
+                        
+                        print("Password Fail")
+                        
+                    } //if2
+                    
+                    
+                } //if1
+                
+                
+                
+            } catch let error as NSError {
+                print("Have Error ==> \(error)")
+            }
+            
+            
+        } //if
+        
+    } //Convert
+    
+    
     
     func showAlert(myTitle: String, myMessage: String) -> Void {
         
@@ -51,6 +175,7 @@ class ViewController: UIViewController {
         
         myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { (action) in
             myAlert.dismiss(animated: true, completion: nil)
+            print("You Click OK")
         }))
         
         myAlert.addAction(UIAlertAction(title: "NO", style: UIAlertAction.Style.default, handler: { (action) in

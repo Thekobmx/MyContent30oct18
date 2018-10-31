@@ -13,6 +13,7 @@
 		AC1D91C121880D8500EF3A66 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC1D91C021880D8500EF3A66 /* Assets.xcassets */; };
 		AC1D91C421880D8500EF3A66 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC1D91C221880D8500EF3A66 /* LaunchScreen.storyboard */; };
 		AC1D91CC218814FF00EF3A66 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D91CB218814FF00EF3A66 /* RegisterViewController.swift */; };
+		AC1D91CE2189679400EF3A66 /* MyContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D91CD2189679400EF3A66 /* MyContentViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		AC1D91C321880D8500EF3A66 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AC1D91C521880D8500EF3A66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AC1D91CB218814FF00EF3A66 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		AC1D91CD2189679400EF3A66 /* MyContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyContentViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				AC1D91B921880D8300EF3A66 /* AppDelegate.swift */,
 				AC1D91BB21880D8300EF3A66 /* ViewController.swift */,
 				AC1D91BD21880D8300EF3A66 /* Main.storyboard */,
+				AC1D91CD2189679400EF3A66 /* MyContentViewController.swift */,
 				AC1D91CB218814FF00EF3A66 /* RegisterViewController.swift */,
 				AC1D91C021880D8500EF3A66 /* Assets.xcassets */,
 				AC1D91C221880D8500EF3A66 /* LaunchScreen.storyboard */,
@@ -138,6 +141,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC1D91CE2189679400EF3A66 /* MyContentViewController.swift in Sources */,
 				AC1D91CC218814FF00EF3A66 /* RegisterViewController.swift in Sources */,
 				AC1D91BC21880D8300EF3A66 /* ViewController.swift in Sources */,
 				AC1D91BA21880D8300EF3A66 /* AppDelegate.swift in Sources */,

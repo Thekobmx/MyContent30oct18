@@ -91,6 +91,7 @@
                     <connections>
                         <outlet property="passwordTextField" destination="jX2-Ym-Dmc" id="W7w-I1-gww"/>
                         <outlet property="userTextField" destination="5Hq-T4-DLS" id="5Zp-wK-UV1"/>
+                        <segue destination="den-fK-gia" kind="show" identifier="gotoMyContent" id="C93-IF-PVk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -177,6 +178,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fVa-YZ-Ctq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="863" y="21"/>
+        </scene>
+        <!--MyContent-->
+        <scene sceneID="nqL-oj-KrJ">
+            <objects>
+                <viewController title="MyContent" id="den-fK-gia" customClass="MyContentViewController" customModule="MyContent" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gI8-id-4n8">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="BNE-KS-fjF"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jYI-pd-kJz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-817" y="95"/>
         </scene>
     </scenes>
     <resources>
